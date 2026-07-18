@@ -1,0 +1,27 @@
+cat > .gitignore <<'EOF'
+# AWS credentials
+.aws/
+*.pem
+*.key
+
+# Safety net: raw (unredacted) identity captures must never be committed.
+# Evidence is redacted at capture time; this guards against accidental raw saves.
+evidence/**/*raw*
+evidence/**/*unredacted*
+
+# Kubernetes local configuration
+kubeconfig
+.kube/
+
+# Environment and secrets
+.env
+.env.*
+secrets/
+*secret*.yaml
+*secret*.yml
+
+# Temporary files
+*.log
+*.tmp
+.DS_Store
+EOF
