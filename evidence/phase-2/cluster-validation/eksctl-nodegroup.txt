@@ -1,0 +1,2 @@
+CLUSTER			NODEGROUP		STATUS	CREATED			MIN SIZE	MAX SIZE	DESIRED CAPACITY	INSTANCE TYPE	IMAGE ID		ASG NAME							TYPE
+project2-eks-cluster	project2-managed-nodes	ACTIVE	2026-07-20T15:28:35Z	1		3		2			t3.medium	AL2023_x86_64_STANDARD	eks-project2-managed-nodes-f4cfc012-53ab-7ecf-2857-c25b9302ec00	managed

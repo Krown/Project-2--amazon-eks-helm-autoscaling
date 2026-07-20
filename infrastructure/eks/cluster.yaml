@@ -1,0 +1,29 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: project2-eks-cluster
+  region: us-east-2
+
+availabilityZones:
+  - us-east-2a
+  - us-east-2b
+
+iam:
+  withOIDC: true
+
+managedNodeGroups:
+  - name: project2-managed-nodes
+    instanceType: t3.medium
+    desiredCapacity: 2
+    minSize: 1
+    maxSize: 3
+    volumeSize: 20
+    privateNetworking: false
+    labels:
+      role: general
+      project: project2
+    tags:
+      Project: project2-eks-deployment
+      Environment: lab
+      ManagedBy: eksctl

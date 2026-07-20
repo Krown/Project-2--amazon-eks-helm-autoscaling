@@ -1,0 +1,2 @@
+Current Kubernetes context:
+arn:aws:eks:us-east-2:REDACTED_ACCOUNT:cluster/project2-eks-cluster

@@ -1,0 +1,4 @@
+Kubernetes control plane is running at https://REDACTED-ENDPOINT
+CoreDNS is running at https://REDACTED-ENDPOINT
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.

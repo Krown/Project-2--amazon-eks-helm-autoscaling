@@ -1,0 +1,2 @@
+NAME			REGION		EKSCTL CREATED
+project2-eks-cluster	us-east-2	True

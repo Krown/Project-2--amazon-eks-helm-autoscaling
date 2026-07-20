@@ -1,0 +1,74 @@
+accessConfig:
+  authenticationMode: API_AND_CONFIG_MAP
+addonsConfig: {}
+apiVersion: eksctl.io/v1alpha5
+availabilityZones:
+- us-east-2a
+- us-east-2b
+iam:
+  vpcResourceControllerPolicy: true
+  withOIDC: true
+kind: ClusterConfig
+managedNodeGroups:
+- amiFamily: AmazonLinux2023
+  desiredCapacity: 2
+  disableIMDSv1: true
+  disablePodIMDS: false
+  iam:
+    withAddonPolicies:
+      albIngress: false
+      appMesh: null
+      appMeshPreview: null
+      autoScaler: false
+      awsLoadBalancerController: false
+      certManager: false
+      cloudWatch: false
+      ebs: false
+      efs: false
+      externalDNS: false
+      fsx: false
+      imageBuilder: false
+      xRay: false
+  instanceSelector: {}
+  instanceType: t3.medium
+  labels:
+    alpha.eksctl.io/cluster-name: project2-eks-cluster
+    alpha.eksctl.io/nodegroup-name: project2-managed-nodes
+    project: project2
+    role: general
+  maxSize: 3
+  minSize: 1
+  name: project2-managed-nodes
+  privateNetworking: false
+  releaseVersion: ""
+  securityGroups:
+    withLocal: null
+    withShared: null
+  ssh:
+    allow: false
+  tags:
+    Environment: lab
+    ManagedBy: eksctl
+    Project: project2-eks-deployment
+    alpha.eksctl.io/nodegroup-name: project2-managed-nodes
+    alpha.eksctl.io/nodegroup-type: managed
+  volumeIOPS: 3000
+  volumeSize: 20
+  volumeThroughput: 125
+  volumeType: gp3
+metadata:
+  name: project2-eks-cluster
+  region: us-east-2
+  version: "1.34"
+privateCluster:
+  enabled: false
+  skipEndpointCreation: false
+vpc:
+  autoAllocateIPv6: false
+  cidr: 192.168.0.0/16
+  clusterEndpoints:
+    privateAccess: false
+    publicAccess: true
+  manageSharedNodeSecurityGroupRules: true
+  nat:
+    gateway: Single

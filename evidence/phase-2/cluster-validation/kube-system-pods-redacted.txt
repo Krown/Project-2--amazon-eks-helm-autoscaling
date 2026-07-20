@@ -1,0 +1,9 @@
+NAME                              STATUS
+aws-node-m5wtb                    Running
+aws-node-xsz9p                    Running
+coredns-6d6c454fdb-2jm7s          Running
+coredns-6d6c454fdb-nhhjb          Running
+kube-proxy-722jl                  Running
+kube-proxy-mrjdz                  Running
+metrics-server-78b98d7d9d-pfs9f   Running
+metrics-server-78b98d7d9d-vr46l   Running
