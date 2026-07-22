@@ -1,0 +1,131 @@
+---
+# Source: mario-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mario-release-mario-chart
+  labels:
+    helm.sh/chart: mario-chart-0.1.0
+    app.kubernetes.io/name: mario-chart
+    app.kubernetes.io/instance: mario-release
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: mario-chart
+    app.kubernetes.io/instance: mario-release
+
+---
+# Source: mario-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mario-release-mario-chart
+  labels:
+    helm.sh/chart: mario-chart-0.1.0
+    app.kubernetes.io/name: mario-chart
+    app.kubernetes.io/instance: mario-release
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+spec:
+
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mario-chart
+      app.kubernetes.io/instance: mario-release
+
+  template:
+    metadata:
+
+      labels:
+        helm.sh/chart: mario-chart-0.1.0
+        app.kubernetes.io/name: mario-chart
+        app.kubernetes.io/instance: mario-release
+        app.kubernetes.io/version: "latest"
+        app.kubernetes.io/managed-by: Helm
+        app: mario
+
+    spec:
+
+      serviceAccountName: default
+
+      securityContext:
+        {}
+
+      containers:
+        - name: mario-chart
+
+          securityContext:
+            {}
+
+          image: "sevenajay/mario:latest"
+
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+
+          resources:
+            limits:
+              cpu: 250m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+
+---
+# Source: mario-chart/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: mario-release-mario-chart
+  labels:
+    helm.sh/chart: mario-chart-0.1.0
+    app.kubernetes.io/name: mario-chart
+    app.kubernetes.io/instance: mario-release
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: mario-release-mario-chart
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+---
+# Source: mario-chart/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "mario-release-mario-chart-test-connection"
+  labels:
+    helm.sh/chart: mario-chart-0.1.0
+    app.kubernetes.io/name: mario-chart
+    app.kubernetes.io/instance: mario-release
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['mario-release-mario-chart:80']
+  restartPolicy: Never
+

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mario-chart
+description: A Helm chart for deploying the Super Mario application to Amazon EKS
+type: application
+version: 0.1.0
+appVersion: "latest"
